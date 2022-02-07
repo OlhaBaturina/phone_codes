@@ -21,19 +21,4 @@ class CountryApi {
       throw Exception(e.toString());
     }
   }
-
-  Future<Country> getCountryByName(String countryName) async {
-    try{
-      var response = await http.get(Uri.parse(url + 'name' + countryName));
-      var jsonResult = jsonDecode(response.body);
-
-      log('RESPONSE: ${Country.fromJson(jsonResult)}');
-      return Country.fromJson(jsonResult);
-    }
-    catch(e) {
-
-      log('$e');
-      throw Exception(e.toString());
-    }
-  }
 }

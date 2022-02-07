@@ -9,12 +9,12 @@ import 'package:phone_codes/home_screen/home_screen.dart';
 class PhoneApp extends StatelessWidget {
   PhoneApp({Key? key, }) : super(key: key);
   
-  final fetchCountry = CountryApi();
+  final countryApi = CountryApi();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => CountryBloc(countryRepo: fetchCountry),
+        create: (context) => CountryBloc(countryApi: countryApi),
         child: const HomeScreen(),
     );
   }

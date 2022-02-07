@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:phone_codes/abstracts/colors.dart';
-import 'package:phone_codes/abstracts/text_styles.dart';
+import 'package:phone_codes/common/colors.dart';
+import 'package:phone_codes/common/text_styles.dart';
 import 'package:phone_codes/bloc/country_bloc.dart';
-import 'package:phone_codes/home_screen/country_list_screen.dart';
-import 'package:phone_codes/home_screen/error_view.dart';
-import 'package:phone_codes/home_screen/input.dart';
+import 'package:phone_codes/country_list/country_list_screen.dart';
+import 'package:phone_codes/error_view/error_view.dart';
+import 'package:phone_codes/home_screen/phone_inputs_view.dart';
 import 'package:phone_codes/model/country.dart';
 import 'package:provider/src/provider.dart';
 
@@ -27,7 +27,7 @@ late Country _currentCountry;
     if(_currentResult.isEmpty) {
       context
       .read<CountryBloc>()
-      .add(const CountryEvent.load());
+        .add(const CountryEvent.load());
     }
   }
   
@@ -50,13 +50,12 @@ late Country _currentCountry;
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Get Started', style: AppTextStyles.h1Title),
+            const Text('Get Started', style: PCTextStyles.h1Title),
             
             state.when(
               loading: () {
-                  return Container(
-                    margin: const EdgeInsets.only(top: 160),
-                    child: const Center(child: CircularProgressIndicator()),
+                  return const Expanded(
+                    child: Center(child: CircularProgressIndicator()),
                   );
               },
 
@@ -65,27 +64,28 @@ late Country _currentCountry;
                   _currentResult.addAll(noviesLoaded);
                   _currentCountry = _currentResult[239];
                 }
-                return  PhoneInput(
-                  onTap: () async {
-                    final result = await Navigator.of(context).push(CupertinoPageRoute(
-                      fullscreenDialog: true,
-                      builder: (context) => CountryListScreen(countryList: _currentResult,)));
-                      
-                      if (result != null) {
-                        _currentCountry = result;
-                        print('$result');
-                      }
-                  },
-                  hint: '(123) 123-1234',
-                  flag: _currentCountry.flags!.flag.toString(),
-                  phoneCode: _currentCountry.callingCodes.toString().replaceAll('[', '').replaceAll(']', ''),
+                return  Expanded(
+                  child: PhoneInput(
+                    onTap: () async {
+                      final result = await Navigator.of(context).push(CupertinoPageRoute(
+                        fullscreenDialog: true,
+                        builder: (context) => CountryListScreen(countryList: _currentResult,)));
+                        
+                        if (result != null) {
+                          _currentCountry = result;
+                        }
+                    },
+                    hint: '(123) 123-1234',
+                    flag: _currentCountry.flags!.flag.toString(),
+                    phoneCode: _currentCountry.callingCodes.first,
+                  ),
                 );
               },
 
               error: () => ErrorView(onRetryBtnPressed: () =>
                 context.read<CountryBloc>() 
                   .add(const CountryEvent
-                  .load())
+                    .load())
               )
             )
           ],

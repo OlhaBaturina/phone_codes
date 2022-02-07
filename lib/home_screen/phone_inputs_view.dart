@@ -2,30 +2,20 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:phone_codes/abstracts/colors.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:phone_codes/common/colors.dart';
+import 'package:phone_codes/common/text_styles.dart';
 
 class PhoneInput extends StatefulWidget {
-  final bool enabled;
-  final String? label;
   final String hint;
   final String flag;
   final String phoneCode;
-  final EdgeInsetsGeometry margin;
-  final TextInputAction? inputAction;
-  final FocusNode? focusNode;
   final VoidCallback? onTap;
   const PhoneInput({
     Key? key,
-    this.enabled = true,
-    this.label,
     required this.hint,
     required this.flag,
     required this.phoneCode,
-    this.margin = EdgeInsets.zero,
-    this.inputAction,
-    this.focusNode,
     this.onTap,
   }) : super(key: key);
 
@@ -37,7 +27,7 @@ class _PhoneInputState extends State<PhoneInput> {
 
   final _phoneInputController = TextEditingController();
   bool buttonEnable = false;
-  final String _phoneNumber = '';
+  final maskFormatter = MaskTextInputFormatter(mask: '(###) ###-####');
 
   @override
   void dispose() {
@@ -47,25 +37,24 @@ class _PhoneInputState extends State<PhoneInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 160),
-      child: Column(
+    return Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              _buildCodeButton(),
-              Expanded(child: _buildPhoneInput())
-            ],
+          Expanded(
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                _buildPhoneCodeButton(),
+                Expanded(child: _buildPhoneInput())
+              ],
+            ),
           ),
           _buildNextButton(),
         ],
-      ),
     );
   }
 
-  Widget _buildCodeButton() {
+  Widget _buildPhoneCodeButton() {
     return Material(
       color: Colors.transparent,
       borderRadius: const BorderRadius.all(Radius.circular(16)),
@@ -102,7 +91,7 @@ class _PhoneInputState extends State<PhoneInput> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 4),
-                child: Text('+${widget.phoneCode}'),
+                child: Text('+${widget.phoneCode}', style: PCTextStyles.inputText,),
               )
             ],
           ),
@@ -121,12 +110,15 @@ class _PhoneInputState extends State<PhoneInput> {
         borderRadius: BorderRadius.all(Radius.circular(16))
       ),
       child: TextFormField(
+        style: PCTextStyles.inputText,
         onChanged: onChange,
+        inputFormatters: <TextInputFormatter>[maskFormatter],
         controller: _phoneInputController,
         keyboardType: TextInputType.phone,
-        maxLength: 10,
+        maxLength: 14,
         decoration: InputDecoration(
           hintText: widget.hint,
+          hintStyle: PCTextStyles.inputHint,
           border: InputBorder.none,
           counterText: ''
         ),
@@ -136,7 +128,7 @@ class _PhoneInputState extends State<PhoneInput> {
 
   Widget _buildNextButton() {
     return Container(
-      margin: const EdgeInsets.only(top: 125),
+      margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 16),
       width: 48,
       height: 48,
       decoration: BoxDecoration(
@@ -151,12 +143,9 @@ class _PhoneInputState extends State<PhoneInput> {
         child: InkWell(
           borderRadius: const BorderRadius.all(Radius.circular(16)),
           onTap: buttonEnable ? (){} : null, 
-          child: Icon(
-            Icons.arrow_forward, 
-            color: buttonEnable
-              ? PCColors.mainPurpleColor
-              : PCColors.hintInputColor,
-              size: 30,
+          child: Image.asset(buttonEnable
+            ? 'assets/ic_active_arrow_right.png'
+            : 'assets/ic_arrow_right.png',
           )
         ),
       )
@@ -165,14 +154,11 @@ class _PhoneInputState extends State<PhoneInput> {
 
   void onChange(String value){
     setState(() {
-      if(value.length == 10) {
+      if(value.length == 14) {
         buttonEnable = true;
       } else {
         buttonEnable = false;
       }
     });
   }
-
-  RegExp exp = RegExp(r"\\D*?(\\d\\D*?){10}");
-  // Iterable<RegExpMatch> matches = exp.allMatches(_phoneInputController.value);
 }

@@ -8,8 +8,6 @@ class PCColors {
   static const Color inputColor = Color(0x66F4F5FF);
   static const Color mainPurpleColor = Color(0xff594C74);
   static const Color hintInputColor = Color(0xff7886B8);
-  static const Color activeIconButtonColor = Color(0xff594C74);
-  static const Color shadowColor = Color(0x2626007A);
 
   static const Color blueGradientColor = Color(0xff8FBBEC);
   static const Color lightBlueGradientColor = Color(0xffFDFEFF);

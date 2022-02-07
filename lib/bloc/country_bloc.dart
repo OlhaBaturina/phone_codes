@@ -8,12 +8,12 @@ part 'country_event.dart';
 part 'country_state.dart';
 
 class CountryBloc extends Bloc<CountryEvent, CountryState> {
-  final CountryApi countryRepo;
-  CountryBloc({required this.countryRepo}):super(const CountryState.loading()) {
+  final CountryApi countryApi;
+  CountryBloc({required this.countryApi}):super(const CountryState.loading()) {
     on<CountryEventLoad>((event, emit) async {
       emit(const CountryState.loading());
       try {
-        List<Country> _countryLoaded = await countryRepo
+        List<Country> _countryLoaded = await countryApi
         .getCountries();
         emit(CountryState.loaded(loadedCountry: _countryLoaded));
 
