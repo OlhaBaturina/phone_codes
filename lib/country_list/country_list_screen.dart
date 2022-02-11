@@ -114,7 +114,7 @@ class _CountryListScreenState extends State<CountryListScreen> {
       child: TextFormField(
         textAlignVertical: TextAlignVertical.center,
         style: PCTextStyles.inputText,
-        onChanged: (value) => query = value,
+        onChanged: (value) => setValue(value),
         decoration: InputDecoration(
           prefixIcon: Image.asset('assets/ic_search.png'),
           hintText: 'Search',
@@ -183,5 +183,11 @@ class _CountryListScreenState extends State<CountryListScreen> {
         ),
       ),
     );
+  }
+
+  void setValue(value) {
+    setState(() {
+      query = value;
+    });
   }
 }

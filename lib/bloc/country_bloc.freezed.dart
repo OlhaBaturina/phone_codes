@@ -21,6 +21,10 @@ class _$CountryEventTearOff {
   CountryEventLoad load() {
     return const CountryEventLoad();
   }
+
+  CountryEventReload reload() {
+    return const CountryEventReload();
+  }
 }
 
 /// @nodoc
@@ -31,32 +35,38 @@ mixin _$CountryEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() load,
+    required TResult Function() reload,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? load,
+    TResult Function()? reload,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? load,
+    TResult Function()? reload,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(CountryEventLoad value) load,
+    required TResult Function(CountryEventReload value) reload,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(CountryEventLoad value)? load,
+    TResult Function(CountryEventReload value)? reload,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CountryEventLoad value)? load,
+    TResult Function(CountryEventReload value)? reload,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -120,6 +130,7 @@ class _$CountryEventLoad implements CountryEventLoad {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() load,
+    required TResult Function() reload,
   }) {
     return load();
   }
@@ -128,6 +139,7 @@ class _$CountryEventLoad implements CountryEventLoad {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? load,
+    TResult Function()? reload,
   }) {
     return load?.call();
   }
@@ -136,6 +148,7 @@ class _$CountryEventLoad implements CountryEventLoad {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? load,
+    TResult Function()? reload,
     required TResult orElse(),
   }) {
     if (load != null) {
@@ -148,6 +161,7 @@ class _$CountryEventLoad implements CountryEventLoad {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(CountryEventLoad value) load,
+    required TResult Function(CountryEventReload value) reload,
   }) {
     return load(this);
   }
@@ -156,6 +170,7 @@ class _$CountryEventLoad implements CountryEventLoad {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(CountryEventLoad value)? load,
+    TResult Function(CountryEventReload value)? reload,
   }) {
     return load?.call(this);
   }
@@ -164,6 +179,7 @@ class _$CountryEventLoad implements CountryEventLoad {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CountryEventLoad value)? load,
+    TResult Function(CountryEventReload value)? reload,
     required TResult orElse(),
   }) {
     if (load != null) {
@@ -175,6 +191,111 @@ class _$CountryEventLoad implements CountryEventLoad {
 
 abstract class CountryEventLoad implements CountryEvent {
   const factory CountryEventLoad() = _$CountryEventLoad;
+}
+
+/// @nodoc
+abstract class $CountryEventReloadCopyWith<$Res> {
+  factory $CountryEventReloadCopyWith(
+          CountryEventReload value, $Res Function(CountryEventReload) then) =
+      _$CountryEventReloadCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$CountryEventReloadCopyWithImpl<$Res>
+    extends _$CountryEventCopyWithImpl<$Res>
+    implements $CountryEventReloadCopyWith<$Res> {
+  _$CountryEventReloadCopyWithImpl(
+      CountryEventReload _value, $Res Function(CountryEventReload) _then)
+      : super(_value, (v) => _then(v as CountryEventReload));
+
+  @override
+  CountryEventReload get _value => super._value as CountryEventReload;
+}
+
+/// @nodoc
+
+class _$CountryEventReload implements CountryEventReload {
+  const _$CountryEventReload();
+
+  @override
+  String toString() {
+    return 'CountryEvent.reload()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is CountryEventReload);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() load,
+    required TResult Function() reload,
+  }) {
+    return reload();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? load,
+    TResult Function()? reload,
+  }) {
+    return reload?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? load,
+    TResult Function()? reload,
+    required TResult orElse(),
+  }) {
+    if (reload != null) {
+      return reload();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CountryEventLoad value) load,
+    required TResult Function(CountryEventReload value) reload,
+  }) {
+    return reload(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(CountryEventLoad value)? load,
+    TResult Function(CountryEventReload value)? reload,
+  }) {
+    return reload?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CountryEventLoad value)? load,
+    TResult Function(CountryEventReload value)? reload,
+    required TResult orElse(),
+  }) {
+    if (reload != null) {
+      return reload(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CountryEventReload implements CountryEvent {
+  const factory CountryEventReload() = _$CountryEventReload;
 }
 
 /// @nodoc

@@ -73,6 +73,8 @@ late Country _currentCountry;
                         
                         if (result != null) {
                           _currentCountry = result;
+                          context.read<CountryBloc>()
+                            .add(const CountryEvent.load());
                         }
                     },
                     hint: '(123) 123-1234',
@@ -85,7 +87,7 @@ late Country _currentCountry;
               error: () => ErrorView(onRetryBtnPressed: () =>
                 context.read<CountryBloc>() 
                   .add(const CountryEvent
-                    .load())
+                    .reload())
               )
             )
           ],
